@@ -4,6 +4,8 @@
 
 
 
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,16 +18,16 @@ public class UsersServlet extends HttpServlet{
 
 
     public void init() throws ServletException {
-        // Do required initialization
-        message = "Hello World";
+
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter pw=response.getWriter();
 
-        pw.println("<html><body>");
+
+
         List<Users> listU =new ArrayList<Users>();
         Users u1=new Users("44","Oksana","Vasko");
         Users u2=new Users("47","Alina","Rex");
@@ -33,15 +35,14 @@ public class UsersServlet extends HttpServlet{
         listU.add(u1);
         listU.add(u2);
         listU.add(u3);
-        Iterator<Users> itrU=listU.iterator();
-        while (itrU.hasNext()){
-            Users elem=itrU.next();
-            pw.println(elem+"<br>");
+
+            Gson gson = new Gson();
+
+            String jsonInString = gson.toJson(listU);
+            pw.println( jsonInString);
         }
 
-        pw.println("</body></html>");
 
-        pw.close();
     }
 
-}
+
