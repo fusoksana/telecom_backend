@@ -24,6 +24,9 @@ public class UsersServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+
         PrintWriter pw=response.getWriter();
 
 
