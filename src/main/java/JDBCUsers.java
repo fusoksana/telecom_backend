@@ -81,7 +81,7 @@ public class JDBCUsers {
 
     }
 
-    public List<Users> deleteUsersFromDB() {
+    public List<Users> deleteUsersFromDB( int IDDelete) {
 
 
         Connection conn = null;
@@ -98,7 +98,62 @@ public class JDBCUsers {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql = "DELETE FROM Users " +
-                    "WHERE id = 44";
+                    "WHERE id ="+ IDDelete;
+            stmt.executeUpdate(sql);
+
+
+            sql = "SELECT ID, firstName, lastName FROM Users";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                int ID = rs.getInt("ID");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                Users user = new Users(ID, firstName, lastName);
+                listUsers.add(user);
+
+
+            }
+            rs.close();
+        } catch (SQLException se) {
+
+            se.printStackTrace();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException se) {
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }return listUsers;
+    }
+    public List<Users> addUsersToDB( int IDN,String firstNameN,String lastNameN) {
+
+
+        Connection conn = null;
+        Statement stmt = null;
+        List<Users> listUsers = new ArrayList<Users>();
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+            String sql = "INSERT INTO Users (ID,firstName,lastName) VALUES (" +IDN+",'"+firstNameN+"','"+lastNameN+"')";
             stmt.executeUpdate(sql);
 
 
