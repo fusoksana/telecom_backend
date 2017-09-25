@@ -137,7 +137,7 @@ public class JDBCUsers {
             }
         }return listUsers;
     }
-    public List<Users> addUsersToDB( int IDN,String firstNameN,String lastNameN) {
+    public boolean addUsersToDB( int IDN,String firstNameN,String lastNameN) {
 
 
         Connection conn = null;
@@ -174,6 +174,7 @@ public class JDBCUsers {
         } catch (SQLException se) {
 
             se.printStackTrace();
+            return false;
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -190,6 +191,6 @@ public class JDBCUsers {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        }return listUsers;
+        }return true ;
     }
 }
