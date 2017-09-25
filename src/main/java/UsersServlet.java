@@ -111,7 +111,10 @@ public class UsersServlet extends HttpServlet{
 
 
       JDBCUsers j=new JDBCUsers();
-       j.addUsersToDB(IDN,firstNameN,lastNameN);
+        boolean b=j.addUsersToDB(IDN,firstNameN,lastNameN);
+        PrintWriter pw=response.getWriter();
+        pw.println("{\"status\" : \""+b+"\"}");
+
 //        List<Users> listU3 =j.getUsersFromDB();
 
 
