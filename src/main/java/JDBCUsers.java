@@ -98,7 +98,7 @@ public class JDBCUsers {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql = "DELETE FROM Users " +
-                    "WHERE id ="+ IDDelete;
+                    "WHERE ID ="+ IDDelete;
             stmt.executeUpdate(sql);
 
 
@@ -193,4 +193,114 @@ public class JDBCUsers {
             }
         }return true ;
     }
+    public boolean editUser( int IDEdit,String firstNameEdit,String lastNameEdit) {
+
+
+        Connection conn = null;
+        Statement stmt = null;
+        List<Users> listUsers = new ArrayList<Users>();
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+            String sql = "UPDATE Users SET firstName='"+firstNameEdit+"' ,lastName ='"+lastNameEdit+"' WHERE ID="+IDEdit+";";
+            stmt.executeUpdate(sql);
+
+
+            sql = "SELECT ID, firstName, lastName FROM Users";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                int ID = rs.getInt("ID");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                Users user = new Users(ID, firstName, lastName);
+                listUsers.add(user);
+
+
+            }
+            rs.close();
+        } catch (SQLException se) {
+
+            se.printStackTrace();
+            return false;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException se) {
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }return true ;
+    }
+    public Users getUserFromDataBase( int IDUser) {
+
+
+        Connection conn = null;
+        Statement stmt = null;
+        Users user=null;
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM Users WHERE ID=" +IDUser;
+
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                int ID = rs.getInt("ID");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                user = new Users(ID, firstName, lastName);
+            }
+
+            rs.close();
+
+        } catch (SQLException se) {
+
+            se.printStackTrace();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException se) {
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }return user;
+    }
+
+
 }
