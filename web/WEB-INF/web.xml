@@ -7,9 +7,20 @@
         <servlet-name>UsersServlet</servlet-name>
         <servlet-class>UsersServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>UsersServlet</servlet-name>
         <url-pattern>/UsersServletAnother/*</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name> UserServlet2</servlet-name>
+        <servlet-class>UserServlet2</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>UserServlet2</servlet-name>
+        <url-pattern>/UserServlet/*</url-pattern>
     </servlet-mapping>
 </web-app>
