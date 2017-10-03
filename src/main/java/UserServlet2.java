@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserServlet2 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -19,16 +17,10 @@ public class UserServlet2 extends HttpServlet {
         sb.deleteCharAt(0);
         url2=sb.toString();
         int ID=Integer.parseInt(url2);
-//
-
         PrintWriter pw=response.getWriter();
         JDBCUsers j=new JDBCUsers();
-        Users user=j.getUserFromDataBase(ID);
-
-
-
+        User user=j.getUserFromDataBase(ID);
         Gson gson = new Gson();
-
         String jsonInString = gson.toJson(user);
         pw.println( jsonInString);
 
@@ -83,8 +75,6 @@ public class UserServlet2 extends HttpServlet {
         boolean b=j.editUser(IDEdit,firstNameEdit,lastNameEdit);
         PrintWriter pw=response.getWriter();
         pw.println("{\"status\" : \""+b+"\"}");
-
-//        List<Users> listU3 =j.getUsersFromDB();
 
 
     }

@@ -1,17 +1,23 @@
-/**
- * Created by yurko on 20.08.17.
- */
-public class Users {
-    private int ID;
-    private String firstName;
-    private String lastName;
-    public Users(int ID, String firstName, String lastName){
-        this.ID=ID;
-        this.firstName=firstName;
-        this.lastName=lastName;
-    }
-    @Override
-    public String toString(){return ID +" "+firstName+" "+lastName;
-    }
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
+/**
+ * Created by yurko on 02.10.17.
+ */
+@XmlRootElement
+public class Users {
+    private List<User> user;
+    public Users(){};
+    public Users(List<User> user){
+        this.user=user;
+
+    }
+    @XmlElement
+    public List<User> getUser() {
+        return user;
+    }
+    public void setUsers (List<User> user) {
+        this.user = user;
+    }
 }

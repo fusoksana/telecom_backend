@@ -9,21 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UsersServlet extends HttpServlet{
 
     private String message;
-
-
-
     public void init() throws ServletException {
 
     }
-
-
-
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
@@ -32,30 +25,14 @@ public class UsersServlet extends HttpServlet{
 
         PrintWriter pw=response.getWriter();
         JDBCUsers j=new JDBCUsers();
-        List<Users> listU =j.getUsersFromDB();
-
-
-
-
-
-
-
-
-//        List<Users> listU= new ArrayList<Users>();
-//       Users u1=new Users(44,"Oksana","Vasko");
-//      Users u2=new Users(47,"Alina","Rex");
-//      Users u3=new Users(49,"Olga","Fus");
-//     listU.add(u1);
-//      listU.add(u2);
-//      listU.add(u3);
-
+        List<User> listU =j.getUsersFromDB();
 
         Gson gson = new Gson();
 
         String jsonInString = gson.toJson(listU);
         pw.println( jsonInString);
 
-    }
+        }
 
     @Override
     public void doOptions(HttpServletRequest request, HttpServletResponse response)
@@ -115,22 +92,15 @@ public class UsersServlet extends HttpServlet{
         PrintWriter pw=response.getWriter();
         pw.println("{\"status\" : \""+b+"\"}");
 
-//        List<Users> listU3 =j.getUsersFromDB();
-
-
     }
     public String parseString(String parts2){
         String[]partsN=parts2.split("=");
         String value=partsN[1];
         return value;
 
-
-
     };
 
-
-
-    @Override
+        @Override
     public void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
@@ -138,45 +108,20 @@ public class UsersServlet extends HttpServlet{
         response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
 
         String uri=request.getPathInfo();
-
-//        uri = uri.substring(1);
-//
-//        uri = uri.replace("/","");
-
-
-
-
-        StringBuilder sb = new StringBuilder(uri);
+            StringBuilder sb = new StringBuilder(uri);
         sb.deleteCharAt(0);
         uri=sb.toString();
         int ID=Integer.parseInt(uri);
-//
+
         PrintWriter pw=response.getWriter();
         JDBCUsers j=new JDBCUsers();
         j.deleteUsersFromDB(ID);
-        List<Users> listU2 =j.getUsersFromDB();
-//
-//
-//
-//
-//
-//
-//
-//
-////        List<Users> listU= new ArrayList<Users>();
-////       Users u1=new Users(44,"Oksana","Vasko");
-////      Users u2=new Users(47,"Alina","Rex");
-////      Users u3=new Users(49,"Olga","Fus");
-////     listU.add(u1);
-////      listU.add(u2);
-////      listU.add(u3);
-//
-//
+        List<User> listU2 =j.getUsersFromDB();
+
+
         Gson gson = new Gson();
-//
         String jsonInString = gson.toJson(listU2);
         pw.println( jsonInString);
-//
     }
 
 

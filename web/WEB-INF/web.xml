@@ -12,15 +12,32 @@
         <url-pattern>/UsersServletAnother/*</url-pattern>
     </servlet-mapping>
 
-
     <servlet>
         <servlet-name> UserServlet2</servlet-name>
         <servlet-class>UserServlet2</servlet-class>
     </servlet>
-
-
     <servlet-mapping>
         <servlet-name>UserServlet2</servlet-name>
         <url-pattern>/UserServlet/*</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name> UserServlet3</servlet-name>
+        <servlet-class>UserServlet3</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet3</servlet-name>
+        <url-pattern>/UserServletThird/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name> UserServlet4</servlet-name>
+        <servlet-class>UserServlet4</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet4</servlet-name>
+        <url-pattern>/UserServletFourth/*</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
