@@ -2,7 +2,6 @@
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class JDBCUsers {
@@ -14,12 +13,12 @@ public class JDBCUsers {
     static final String USER = "root";
     static final String PASS = "1234";
 
-    public List<Users> getUsersFromDB() {
+    public List<User> getUsersFromDB() {
 
 
         Connection conn = null;
         Statement stmt = null;
-        List<Users> listUsers = new ArrayList<Users>();
+        List<User> listUsers = new ArrayList<User>();
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -31,7 +30,7 @@ public class JDBCUsers {
             //System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT ID, firstName, lastName FROM Users";
+            sql = "SELECT ID, firstName, lastName FROM Users ORDER BY ID ASC;";
             ResultSet rs = stmt.executeQuery(sql);
 
 
@@ -46,7 +45,7 @@ public class JDBCUsers {
                 // System.out.println(", lastName: " + lastName);
 
                 // System.out.println(user);
-                Users user = new Users(ID, firstName, lastName);
+                User user = new User(ID, firstName, lastName);
                 listUsers.add(user);
             }
 
@@ -81,12 +80,12 @@ public class JDBCUsers {
 
     }
 
-    public List<Users> deleteUsersFromDB( int IDDelete) {
+    public List<User> deleteUsersFromDB( int IDDelete) {
 
 
         Connection conn = null;
         Statement stmt = null;
-        List<Users> listUsers = new ArrayList<Users>();
+        List<User> listUsers = new ArrayList<User>();
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -102,7 +101,7 @@ public class JDBCUsers {
             stmt.executeUpdate(sql);
 
 
-            sql = "SELECT ID, firstName, lastName FROM Users";
+            sql = "SELECT ID, firstName, lastName FROM Users ORDER BY ID ASC;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -110,7 +109,7 @@ public class JDBCUsers {
                 int ID = rs.getInt("ID");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
-                Users user = new Users(ID, firstName, lastName);
+                User user = new User(ID, firstName, lastName);
                 listUsers.add(user);
 
 
@@ -142,7 +141,7 @@ public class JDBCUsers {
 
         Connection conn = null;
         Statement stmt = null;
-        List<Users> listUsers = new ArrayList<Users>();
+        List<User> listUsers = new ArrayList<User>();
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -157,7 +156,7 @@ public class JDBCUsers {
             stmt.executeUpdate(sql);
 
 
-            sql = "SELECT ID, firstName, lastName FROM Users";
+            sql = "SELECT ID, firstName, lastName FROM Users ORDER BY ID ASC;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -165,7 +164,7 @@ public class JDBCUsers {
                 int ID = rs.getInt("ID");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
-                Users user = new Users(ID, firstName, lastName);
+                User user = new User(ID, firstName, lastName);
                 listUsers.add(user);
 
 
@@ -198,7 +197,7 @@ public class JDBCUsers {
 
         Connection conn = null;
         Statement stmt = null;
-        List<Users> listUsers = new ArrayList<Users>();
+        List<User> listUsers = new ArrayList<User>();
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -213,7 +212,7 @@ public class JDBCUsers {
             stmt.executeUpdate(sql);
 
 
-            sql = "SELECT ID, firstName, lastName FROM Users";
+            sql = "SELECT ID, firstName, lastName FROM Users ORDER BY ID ASC;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -221,7 +220,7 @@ public class JDBCUsers {
                 int ID = rs.getInt("ID");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
-                Users user = new Users(ID, firstName, lastName);
+                User user = new User(ID, firstName, lastName);
                 listUsers.add(user);
 
 
@@ -249,12 +248,12 @@ public class JDBCUsers {
             }
         }return true ;
     }
-    public Users getUserFromDataBase( int IDUser) {
+    public User getUserFromDataBase( int IDUser) {
 
 
         Connection conn = null;
         Statement stmt = null;
-        Users user=null;
+        User user=null;
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -275,7 +274,7 @@ public class JDBCUsers {
                 int ID = rs.getInt("ID");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
-                user = new Users(ID, firstName, lastName);
+                user = new User(ID, firstName, lastName);
             }
 
             rs.close();
