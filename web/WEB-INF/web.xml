@@ -23,20 +23,20 @@
 
     <servlet>
         <servlet-name> UserServlet3</servlet-name>
-        <servlet-class>UserServlet3</servlet-class>
+        <servlet-class>ExportJsonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet3</servlet-name>
-        <url-pattern>/UserServletThird/*</url-pattern>
+        <url-pattern>/UserServletTh*</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name> UserServlet4</servlet-name>
-        <servlet-class>UserServlet4</servlet-class>
+        <servlet-class>ExportXMLServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet4</servlet-name>
-        <url-pattern>/UserServletFourth/*</url-pattern>
+        <url-pattern>/UsersExport</url-pattern>
     </servlet-mapping>
 
 

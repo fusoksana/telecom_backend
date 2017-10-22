@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by yurko on 30.09.17.
  */
-public class UserServlet3 extends HttpServlet {
+public class ExportJsonServlet extends HttpServlet {
     @Override
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
