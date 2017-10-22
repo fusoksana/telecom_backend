@@ -1,7 +1,11 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 
+import javax.xml.bind.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +27,10 @@ public class UserConverter {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Gson gson=new Gson();
-       List<User> usersFromFile = gson.fromJson(br, new TypeToken<List<User>>() {
-       }.getType());;
+        Gson gson = new Gson();
+        List<User> usersFromFile = gson.fromJson(br, new TypeToken<List<User>>() {
+        }.getType());
+        ;
 
         //
 
@@ -54,5 +59,27 @@ public class UserConverter {
         System.out.println("ASDASD");
         System.out.println("ASDASD1");
         return usersFromFile;
+    }
+
+    public List<User> convertFromXML(String filePath) {
+        List<User> userXMLList=new ArrayList<User>();
+        try {
+
+            File file = new File(filePath);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            Users uXML= (Users) jaxbUnmarshaller.unmarshal(file);
+
+
+            userXMLList=uXML.getUser();
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return userXMLList;
     }
 }
