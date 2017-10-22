@@ -37,5 +37,12 @@ public class JDBCUserTest {
         Assert.assertNotNull(listNew);
         Assert.assertEquals(16, listNew.size());
     }
+    @Test
+    public void testImportXML(){
+        UserConverter ucXML=new UserConverter();
+        String filePath = "/home/yurko/OKSANA/java/Users.xml";
+        List<User> lUXML=ucXML.convertFromXML(filePath);
+        Assert.assertEquals(10, lUXML.size());
+    }
 
 }
