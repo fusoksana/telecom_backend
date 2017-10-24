@@ -17,55 +17,31 @@ public class ExportXMLServlet extends HttpServlet{
         response.setContentType("text/plain");
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
-        JAXBContext contextObj = null;
+
+        UsersExport userExport;
+
         String fileType = request.getQueryString();
         if (fileType.equals("xml")) {
-            System.out.println("XML");
+            userExport = new XMLExport();
         }
-        if (fileType.equals("json")){
-            System.out.println(" Ти козел");
+         else if(fileType.equals("json")){
+            userExport=new JsonExport();
+        } else {
+            userExport = new CSVExport();
         }
-            try {
-                contextObj = JAXBContext.newInstance(Users.class);
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
 
-            Marshaller marshallerObj = null;
-            try {
-                marshallerObj = contextObj.createMarshaller();
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
-            try {
-                marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            } catch (PropertyException e) {
-                e.printStackTrace();
-            }
+        ExportedFile expFile = userExport.getExportedFile();
 
-
-            JDBCUsers j = new JDBCUsers();
-            List<User> user = j.getUsersFromDB();
-            Users us = new Users(user);
-
-            try {
-
-                marshallerObj.marshal(us, new FileOutputStream("/home/yurko/OKSANA/java/Users.xml"));
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
-            String file = "/home/yurko/OKSANA/java/Users.xml";
-            response.setHeader("Content-disposition", "attachment; filename=yourcustomfilename.txt");
-
-            OutputStream out = response.getOutputStream();
-            FileInputStream in = new FileInputStream(file);
-            byte[] buffer = new byte[4096];
-            int length;
-            while ((length = in.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
-            }
-            in.close();
-            out.flush();
+        response.setHeader("Content-disposition", "attachment; filename=yourcustomfilename."+expFile.getExtention());
+        OutputStream out = response.getOutputStream();
+        FileInputStream in = new FileInputStream(expFile.getFile());
+        byte[] buffer = new byte[4096];
+        int length;
+        while ((length = in.read(buffer)) > 0) {
+            out.write(buffer, 0, length);
+        }
+        in.close();
+        out.flush();
 
         }
 
